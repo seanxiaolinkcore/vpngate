@@ -71,6 +71,7 @@ return static function (Slim\App $app): void {
         $group->post('/edit/theme', App\Controllers\User\InfoController::class . ':updateTheme');
         $group->post('/edit/theme_mode', App\Controllers\User\InfoController::class . ':updateThemeMode');
         $group->post('/edit/kill', App\Controllers\User\InfoController::class . ':sendToGulag');
+        $group->get('/locale/{locale}', App\Controllers\User\InfoController::class . ':updateLocale');
         // 发送验证邮件
         $group->post('/edit/send', App\Controllers\AuthController::class . ':sendVerify');
         // MFA

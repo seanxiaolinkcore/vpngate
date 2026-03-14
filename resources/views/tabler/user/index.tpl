@@ -102,13 +102,11 @@
     }
 }
 
-/* 手风琴样式 */
 .accordion-button:not(.collapsed) {
     background: var(--tblr-primary-lt);
     color: var(--tblr-primary);
 }
 
-/* 敏感信息模糊效果 */
 .spoiler {
     filter: blur(5px);
     transition: filter 0.3s;
@@ -125,10 +123,10 @@
             <div class="row align-items-center">
                 <div class="col">
                     <h2 class="page-title">
-                        <span class="home-title">用户中心</span>
+                        <span class="home-title">{$t.dashboard.title}</span>
                     </h2>
                     <div class="page-pretitle my-3">
-                        <span class="home-subtitle">在这里查看账户信息和最新公告</span>
+                        <span class="home-subtitle">{$t.dashboard.subtitle}</span>
                     </div>
                 </div>
             </div>
@@ -175,38 +173,38 @@
                 <div class="col-lg-6 col-sm-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">快速配置</h3>
+                            <h3 class="card-title">{$t.dashboard.quick_setup}</h3>
                         </div>
                         <div class="card-body">
                             <div class="mb-4">
                                 <h4 class="mb-3">
-                                    <i class="ti ti-link"></i> 您的专属订阅地址
+                                    <i class="ti ti-link"></i> {$t.dashboard.your_sub_link}
                                 </h4>
                                 <div class="input-group mb-2">
                                     <input type="text" class="form-control" value="{$UniversalSub}" readonly id="universal-sub-link">
                                     <button class="btn btn-primary copy" data-clipboard-text="{$UniversalSub}">
-                                        <i class="ti ti-copy"></i> 复制
+                                        <i class="ti ti-copy"></i> {$t.dashboard.copy}
                                     </button>
                                 </div>
                                 <p class="text-muted mb-0">
-                                    <small>此订阅地址适用于所有客户端，请妥善保管</small>
+                                    <small>{$t.dashboard.sub_link_hint}</small>
                                 </p>
                             </div>
 
                             <div class="recommended-section p-3 bg-primary-lt rounded mb-3">
                                 <h4 class="mb-3">
-                                    <i class="ti ti-rocket"></i> 
-                                    为您推荐的 <span id="detected-os" class="text-primary">Windows</span> 客户端
+                                    <i class="ti ti-rocket"></i>
+                                    {$t.dashboard.recommended_for} <span id="detected-os" class="text-primary">Windows</span> {$t.dashboard.client}
                                 </h4>
                                 <div class="row g-3" id="recommended-clients">
                                 </div>
                             </div>
 
                             <div class="text-center">
-                                <button class="btn btn-ghost-primary" type="button" data-bs-toggle="collapse" 
+                                <button class="btn btn-ghost-primary" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#all-platforms" aria-expanded="false">
-                                    <i class="ti ti-package"></i> 
-                                    查看其他平台客户端
+                                    <i class="ti ti-package"></i>
+                                    {$t.dashboard.view_other_platforms}
                                     <i class="ti ti-chevron-down ms-1"></i>
                                 </button>
                             </div>
@@ -216,11 +214,11 @@
                                 </div>
                                 
                                 <div class="mt-3 p-3 bg-secondary-lt rounded">
-                                    <h5 class="mb-2">高级订阅格式</h5>
-                                    <div class="small text-muted mb-2">如果您需要特定格式的订阅链接：</div>
+                                    <h5 class="mb-2">{$t.dashboard.advanced_formats}</h5>
+                                    <div class="small text-muted mb-2">{$t.dashboard.advanced_hint}</div>
                                     <div class="btn-group btn-group-sm flex-wrap">
                                         <button class="btn btn-outline-secondary copy" data-clipboard-text="{$UniversalSub}/json">
-                                            JSON 格式
+                                            JSON
                                         </button>
                                         <button class="btn btn-outline-secondary copy" data-clipboard-text="{$UniversalSub}/v2rayjson">
                                             V2Ray JSON
@@ -247,10 +245,10 @@
                                 </div>
                                 
                                 <div class="mt-3">
-                                    <button class="btn btn-ghost-secondary w-100" type="button" data-bs-toggle="collapse" 
+                                    <button class="btn btn-ghost-secondary w-100" type="button" data-bs-toggle="collapse"
                                             data-bs-target="#connection-info" aria-expanded="false">
-                                        <i class="ti ti-info-circle"></i> 
-                                        查看连接信息
+                                        <i class="ti ti-info-circle"></i>
+                                        {$t.dashboard.view_connection_info}
                                         <i class="ti ti-chevron-down ms-1"></i>
                                     </button>
                                     <div class="collapse mt-2" id="connection-info">
@@ -259,19 +257,19 @@
                                                 <table class="table table-sm mb-0">
                                                     <tbody>
                                                     <tr>
-                                                        <td class="text-muted" style="width: 100px;">端口</td>
+                                                        <td class="text-muted" style="width: 100px;">{$t.dashboard.port}</td>
                                                         <td><code>{$user->port}</code></td>
                                                     </tr>
                                                     <tr>
-                                                        <td class="text-muted">连接密码</td>
+                                                        <td class="text-muted">{$t.dashboard.password}</td>
                                                         <td><code class="spoiler">{$user->passwd}</code></td>
                                                     </tr>
                                                     <tr>
-                                                        <td class="text-muted">UUID</td>
+                                                        <td class="text-muted">{$t.dashboard.uuid}</td>
                                                         <td><code class="spoiler" style="font-size: 0.8em;">{$user->uuid}</code></td>
                                                     </tr>
                                                     <tr>
-                                                        <td class="text-muted">加密方式</td>
+                                                        <td class="text-muted">{$t.dashboard.encryption}</td>
                                                         <td><code>{$user->method}</code></td>
                                                     </tr>
                                                     </tbody>
@@ -290,7 +288,7 @@
                     <div class="vstack">
                         <div class="card">
                             <div class="card-body">
-                                <h3 class="card-title">流量用量</h3>
+                                <h3 class="card-title">{$t.dashboard.traffic_usage}</h3>
                                 <div class="progress progress-separated mb-3">
                                     {if $user->LastusedTrafficPercent() < '1'}
                                     <div class="progress-bar bg-primary" role="progressbar" style="width: 1%"></div>
@@ -309,24 +307,22 @@
                                 <div class="row">
                                     <div class="col-auto d-flex align-items-center pe-2">
                                         <span class="legend me-2 bg-primary"></span>
-                                        <span>过去用量 {$user->LastusedTraffic()}</span>
+                                        <span>{$t.dashboard.past_usage} {$user->LastusedTraffic()}</span>
                                     </div>
                                     <div class="col-auto d-flex align-items-center px-2">
                                         <span class="legend me-2 bg-success"></span>
-                                        <span>今日用量 {$user->TodayusedTraffic()}</span>
+                                        <span>{$t.dashboard.today_usage} {$user->TodayusedTraffic()}</span>
                                     </div>
                                     <div class="col-auto d-flex align-items-center ps-2">
                                         <span class="legend me-2"></span>
-                                        <span>剩余流量 {$user->unusedTraffic()}</span>
+                                        <span>{$t.dashboard.remaining} {$user->unusedTraffic()}</span>
                                     </div>
                                 </div>
                                 <p class="my-3">
                                     {if $user->class === 0}
-                                    前往
-                                    <a href="/user/product">商店</a>
-                                    购买套餐
+                                    <a href="/user/product">{$t.dashboard.go_to_shop}</a> — {$t.dashboard.buy_plan}
                                     {else}
-                                    你的 LV. {$user->class} 账户会在 {$class_expire_days} 天后到期（{$user->class_expire}）
+                                    LV.{$user->class} — {$t.dashboard.expires_in|replace:'%class%':$user->class|replace:'%days%':$class_expire_days|replace:'%date%':$user->class_expire}
                                     {/if}
                                 </p>
                             </div>
@@ -334,7 +330,7 @@
                         {if $public_setting['traffic_log']}
                         <div class="card my-3 mb-0">
                             <div class="card-body">
-                                <h3 class="card-title">每小时用量</h3>
+                                <h3 class="card-title">{$t.dashboard.hourly_usage}</h3>
                                 <div id="traffic-log"></div>
                             </div>
                         </div>
@@ -350,27 +346,24 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <h3 class="card-title">每日签到</h3>
+                            <h3 class="card-title">{$t.dashboard.daily_checkin}</h3>
                             <p>
-                                签到可领取
                                 {if $public_setting['checkin_min'] !== $public_setting['checkin_max']}
-                                &nbsp;
-                                <code>{$public_setting['checkin_min']} MB</code>
-                                至
-                                <code>{$public_setting['checkin_max']} MB</code>
-                                范围内的流量
+                                {$t.dashboard.checkin_earn}
+                                <code>{$public_setting['checkin_min']} MB</code> — <code>{$public_setting['checkin_max']} MB</code>
+                                {$t.dashboard.checkin_earn_suffix}
                                 {else}
-                                <code>{$public_setting['checkin_min']} MB</code>
+                                {$t.dashboard.checkin_earn_fixed} <code>{$public_setting['checkin_min']} MB</code> {$t.dashboard.checkin_earn_suffix}
                                 {/if}
                             </p>
                             <p>
-                                上次签到时间：<code id="last-checkin-time">{$user->lastCheckInTime()}</code>
+                                {$t.dashboard.last_checkin} <code id="last-checkin-time">{$user->lastCheckInTime()}</code>
                             </p>
                         </div>
                         <div class="card-footer">
                             <div class="d-flex">
                                 {if !$user->isAbleToCheckin()}
-                                <button id="check-in" class="btn btn-primary ms-auto" disabled>已签到</button>
+                                <button id="check-in" class="btn btn-primary ms-auto" disabled>{$t.dashboard.checked_in}</button>
                                 {else}
                                 {if $public_setting['enable_checkin_captcha']}
                                 {include file='captcha/div.tpl'}
@@ -381,7 +374,7 @@
                                     {include file='captcha/ajax.tpl'}
                                     {/if}
                                     }'>
-                                    签到
+                                    {$t.dashboard.checkin_btn}
                                 </button>
                                 {/if}
                             </div>
@@ -396,7 +389,7 @@
                         </div>
                         <div class="card-body">
                             <h3 class="card-title">
-                                置顶公告
+                                {$t.dashboard.pinned_announcement}
                                 {if $ann !== null}
                                 <span class="card-subtitle">{$ann->date}</span>
                                 {/if}
@@ -405,7 +398,7 @@
                                 {if $ann !== null}
                                 {$ann->content}
                                 {else}
-                                暂无公告
+                                {$t.dashboard.no_announcement}
                                 {/if}
                             </p>
                         </div>
@@ -444,7 +437,7 @@
                 },
                 series: [
                     {
-                        name: "使用流量（MB）",
+                        name: "{$t.dashboard.traffic_usage} (MB)",
                         data: trafficData
                     }
                 ],
@@ -462,7 +455,7 @@
                 },
                 xaxis: {
                     title: {
-                        text: "小时"
+                        text: "Hour"
                     },
                     labels: {
                         padding: 0
@@ -480,7 +473,7 @@
                 },
                 yaxis: {
                     title: {
-                        text: "使用流量（MB）",
+                        text: "Traffic (MB)",
                         rotate: -90
                     },
                     labels: {
@@ -502,7 +495,7 @@
                 const chart = new ApexCharts(chartElement, getTrafficChartConfig({$traffic_logs}));
                 chart.render();
             } catch (error) {
-                console.error('流量图表初始化失败:', error);
+                console.error('Traffic chart init failed:', error);
             }
         }
         
@@ -519,7 +512,14 @@
         appName: "{$config['appName']}",
         enableSsSub: {if $public_setting['enable_ss_sub']}true{else}false{/if},
         enableV2Sub: {if $public_setting['enable_v2_sub']}true{else}false{/if},
-        enableTrojanSub: {if $public_setting['enable_trojan_sub']}true{else}false{/if}
+        enableTrojanSub: {if $public_setting['enable_trojan_sub']}true{else}false{/if},
+        i18n: {
+            copied: "{$t.dashboard.copied}",
+            download: "{$t.dashboard.download}",
+            copySub: "{$t.dashboard.copy_sub}",
+            import: "{$t.dashboard.import}",
+            appStore: "{$t.dashboard.app_store}"
+        }
     };
     
     const platformIcons = {$platformIcons};
@@ -538,25 +538,26 @@
     }
     
 
+    const i18n = window.APP_CONFIG.i18n;
     const CONFIG = {
-        ANIMATION_DURATION: 350,        // 动画持续时间（毫秒）
-        FEEDBACK_TIMEOUT: 2000,         // 反馈提示持续时间（毫秒）
-        CLIPBOARD_SUCCESS_TEXT: '已复制',
-        CLIPBOARD_ERROR_TEXT: '复制失败，请手动选择并复制',
+        ANIMATION_DURATION: 350,
+        FEEDBACK_TIMEOUT: 2000,
+        CLIPBOARD_SUCCESS_TEXT: i18n.copied,
+        CLIPBOARD_ERROR_TEXT: 'Copy failed — please select and copy manually',
         CLASSES: {
             BTN_GROUP_MOBILE: 'btn-group-vertical',
-            BTN_GROUP_DESKTOP: 'btn-group btn-group-sm', 
+            BTN_GROUP_DESKTOP: 'btn-group btn-group-sm',
             MOBILE_ONLY: 'd-md-none w-100',
             DESKTOP_ONLY: 'd-none d-md-flex',
             MOBILE_SM: 'd-sm-none w-100',
             DESKTOP_SM: 'd-none d-sm-flex'
         },
         BUTTONS: {
-            download: { icon: 'ti-download', text: '下载', class: 'btn-primary' },
-            downloadAppStore: { icon: 'ti-brand-appstore', text: 'App Store', class: 'btn-primary' },
-            copy: { icon: 'ti-copy', text: '复制订阅', class: 'btn-info copy' },
-            import: { icon: 'ti-link', text: '一键导入', class: 'btn-success' },
-            importRecommended: { icon: 'ti-rocket', text: '一键导入', class: 'btn-success' }
+            download: { icon: 'ti-download', text: i18n.download, class: 'btn-primary' },
+            downloadAppStore: { icon: 'ti-brand-appstore', text: i18n.appStore, class: 'btn-primary' },
+            copy: { icon: 'ti-copy', text: i18n.copySub, class: 'btn-info copy' },
+            import: { icon: 'ti-link', text: i18n.import, class: 'btn-success' },
+            importRecommended: { icon: 'ti-rocket', text: i18n.import, class: 'btn-success' }
         }
     };
     
@@ -564,7 +565,7 @@
         try {
             fn();
         } catch (error) {
-            console.error(`${name} 初始化失败:`, error);
+            console.error(`${name} init failed:`, error);
         }
     }
     
@@ -762,7 +763,7 @@
     
     function initClipboard() {
         if (typeof ClipboardJS === 'undefined') {
-            console.warn('ClipboardJS 未加载');
+            console.warn('ClipboardJS not loaded');
             return;
         }
         
@@ -781,7 +782,7 @@
         });
         
         clipboard.on('error', function(e) {
-            console.error('复制失败:', e.action);
+            console.error('Copy failed:', e.action);
             alert(CONFIG.CLIPBOARD_ERROR_TEXT);
         });
     }
@@ -809,9 +810,9 @@
     }
     
     document.addEventListener('DOMContentLoaded', function() {
-        safeInit(initClientSelector, '客户端选择器');
-        safeInit(initClipboard, '剪贴板功能');
-        safeInit(initCollapseAnimations, '折叠动画');
+        safeInit(initClientSelector, 'Client selector');
+        safeInit(initClipboard, 'Clipboard');
+        safeInit(initCollapseAnimations, 'Collapse animations');
     });
     {/literal}
     </script>

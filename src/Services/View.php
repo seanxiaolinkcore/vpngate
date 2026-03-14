@@ -18,16 +18,17 @@ final class View
 
     public static function getSmarty(): Smarty
     {
-        $smarty = new Smarty(); //实例化smarty
+        $smarty = new Smarty();
         $user = Auth::getUser();
 
-        $smarty->setTemplateDir(BASE_PATH . '/resources/views/' . self::getTheme($user) . '/'); //设置模板文件存放目录
-        $smarty->setCompileDir(BASE_PATH . '/storage/framework/smarty/compile/'); //设置生成文件存放目录
-        $smarty->setCacheDir(BASE_PATH . '/storage/framework/smarty/cache/'); //设置缓存文件存放目录
-        // add config
+        $smarty->setTemplateDir(BASE_PATH . '/resources/views/' . self::getTheme($user) . '/');
+        $smarty->setCompileDir(BASE_PATH . '/storage/framework/smarty/compile/');
+        $smarty->setCacheDir(BASE_PATH . '/storage/framework/smarty/cache/');
         $smarty->assign('config', self::getConfig());
         $smarty->assign('public_setting', Config::getPublicConfig());
         $smarty->assign('user', $user);
+        $smarty->assign('t', self::getTranslations($user));
+        $smarty->assign('locale_list', I18n::getLocaleList());
 
         return $smarty;
     }
@@ -44,8 +45,21 @@ final class View
         $twig->addGlobal('config', self::getConfig());
         $twig->addGlobal('public_setting', Config::getPublicConfig());
         $twig->addGlobal('user', $user);
+        $twig->addGlobal('t', self::getTranslations($user));
+        $twig->addGlobal('locale_list', I18n::getLocaleList());
 
         return $twig;
+    }
+
+    public static function getTranslations($user): array
+    {
+        $lang = $user->isLogin && $user->locale ? $user->locale : ($_ENV['locale'] ?? 'en_US');
+        $localeFile = BASE_PATH . '/resources/locale/' . $lang . '.php';
+        if (! file_exists($localeFile)) {
+            $lang = 'en_US';
+            $localeFile = BASE_PATH . '/resources/locale/en_US.php';
+        }
+        return require $localeFile;
     }
 
     public static function getTheme($user): string

@@ -303,6 +303,21 @@ final class InfoController extends BaseController
         return $response->withHeader('HX-Refresh', 'true');
     }
 
+    public function updateLocale(ServerRequest $request, Response $response, array $args): ResponseInterface
+    {
+        $locale = $this->antiXss->xss_clean($args['locale'] ?? '');
+        $allowed = ['en_US', 'zh_CN', 'zh_TW', 'ja_JP'];
+
+        if (! in_array($locale, $allowed)) {
+            $locale = 'en_US';
+        }
+
+        $this->user->locale = $locale;
+        $this->user->save();
+
+        return $response->withRedirect('/user', 302);
+    }
+
     public function sendToGulag(ServerRequest $request, Response $response, array $args): ResponseInterface
     {
         $user = $this->user;
