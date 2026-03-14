@@ -112,6 +112,15 @@
                                            value="{$content->bandwidth}">
                                 </div>
                             </div>
+                            <div id="monthly_bandwidth_option" class="form-group mb-3 row">
+                                <label class="form-label col-3 col-form-label">每月流量 (GB)
+                                    <span class="form-hint">0 = 不启用月重置，发放全部流量</span>
+                                </label>
+                                <div class="col">
+                                    <input id="monthly_bandwidth" type="text" class="form-control"
+                                           value="{$content->monthly_bandwidth}">
+                                </div>
+                            </div>
                             <div id="node_group_option" class="form-group mb-3 row">
                                 <label class="form-label col-3 col-form-label required">用户分组</label>
                                 <div class="col">
@@ -180,6 +189,7 @@
             $("#class_option").hide();
             $("#class_time_option").hide();
             $("#bandwidth_option").show();
+            $("#monthly_bandwidth_option").hide();
             $("#node_group_option").hide();
             $("#speed_limit_option").hide();
             $("#ip_limit_option").hide();
@@ -195,6 +205,7 @@
             $("#class_option").show();
             $("#class_time_option").show();
             $("#bandwidth_option").hide();
+            $("#monthly_bandwidth_option").hide();
             $("#node_group_option").show();
             $("#speed_limit_option").show();
             $("#ip_limit_option").show();
@@ -210,6 +221,7 @@
             $("#class_option").show();
             $("#class_time_option").show();
             $("#bandwidth_option").show();
+            $("#monthly_bandwidth_option").show();
             $("#node_group_option").show();
             $("#speed_limit_option").show();
             $("#ip_limit_option").show();

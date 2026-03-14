@@ -58,6 +58,7 @@ EOL;
             $jobs->cleanDb();
             $jobs->resetNodeBandwidth();
             $jobs->resetFreeUserBandwidth();
+            $jobs->resetPaidUserMonthlyBandwidth();
             $jobs->sendDailyTrafficReport();
 
             if (Config::obtain('enable_detect_inactive_user')) {

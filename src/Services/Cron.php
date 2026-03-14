@@ -269,11 +269,15 @@ final class Cron
                 $order = $pending_activation_orders[0];
                 // 获取TABP订单内容准备激活
                 $content = json_decode($order->product_content);
+                $monthly_bw = isset($content->monthly_bandwidth) ? (float) $content->monthly_bandwidth : 0;
                 // 激活TABP
                 $user->u = 0;
                 $user->d = 0;
                 $user->transfer_today = 0;
-                $user->transfer_enable = Tools::gbToB($content->bandwidth);
+                // 如果设置了每月流量，则首期只给一个月的量；否则给全部
+                $user->transfer_enable = $monthly_bw > 0
+                    ? Tools::gbToB($monthly_bw)
+                    : Tools::gbToB($content->bandwidth);
                 $user->class = $content->class;
                 $old_class_expire = new DateTime();
                 $user->class_expire = $old_class_expire
@@ -284,6 +288,11 @@ final class Cron
                 $user->save();
                 $order->status = 'activated';
                 $order->update_time = time();
+                // 记录每月重置信息到订单
+                if ($monthly_bw > 0) {
+                    $order->monthly_bandwidth = $monthly_bw;
+                    $order->next_reset_time = strtotime('+30 days');
+                }
                 $order->save();
                 echo "TABP订单 #{$order->id} 已激活。\n";
             }
@@ -480,6 +489,49 @@ final class Cron
         }
 
         echo Tools::toDateTime(time()) . ' 免费用户流量重置完成' . PHP_EOL;
+    }
+
+    public static function resetPaidUserMonthlyBandwidth(): void
+    {
+        $orders = (new Order())->where('status', 'activated')
+            ->where('product_type', 'tabp')
+            ->where('monthly_bandwidth', '>', 0)
+            ->where('next_reset_time', '>', 0)
+            ->where('next_reset_time', '<=', time())
+            ->get();
+
+        foreach ($orders as $order) {
+            $user = (new User())->find($order->user_id);
+
+            if ($user === null) {
+                continue;
+            }
+
+            $user->u = 0;
+            $user->d = 0;
+            $user->transfer_today = 0;
+            $user->transfer_enable = Tools::gbToB((float) $order->monthly_bandwidth);
+            $user->traffic_notified = false;
+            $user->save();
+
+            $order->next_reset_time = strtotime('+30 days', (int) $order->next_reset_time);
+            $order->update_time = time();
+            $order->save();
+
+            try {
+                Notification::notifyUser(
+                    $user,
+                    $_ENV['appName'] . ' - Monthly Traffic Reset',
+                    'Your monthly traffic has been reset to ' . $order->monthly_bandwidth . ' GB.'
+                );
+            } catch (GuzzleException|ClientExceptionInterface|TelegramSDKException $e) {
+                echo $e->getMessage() . PHP_EOL;
+            }
+
+            echo "Monthly traffic reset for user #{$user->id}, order #{$order->id}.\n";
+        }
+
+        echo Tools::toDateTime(time()) . ' Paid user monthly bandwidth reset complete' . PHP_EOL;
     }
 
     public static function sendDailyFinanceMail(): void

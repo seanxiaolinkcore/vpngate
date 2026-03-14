@@ -40,6 +40,7 @@ final class ProductController extends BaseController
         'stock',
         'time',
         'bandwidth',
+        'monthly_bandwidth',
         'class',
         'class_time',
         'node_group',
@@ -89,6 +90,7 @@ final class ProductController extends BaseController
         $content->class = $content->class ?? 0;
         $content->class_time = $content->class_time ?? 0;
         $content->bandwidth = $content->bandwidth ?? 0;
+        $content->monthly_bandwidth = $content->monthly_bandwidth ?? 0;
         $content->node_group = $content->node_group ?? 0;
         $content->speed_limit = $content->speed_limit ?? 0;
         $content->ip_limit = $content->ip_limit ?? 0;
@@ -114,6 +116,7 @@ final class ProductController extends BaseController
         // content
         $time = $request->getParam('time') ?? 0;
         $bandwidth = $request->getParam('bandwidth') ?? 0;
+        $monthly_bandwidth = $request->getParam('monthly_bandwidth') ?? 0;
         $class = $request->getParam('class') ?? 0;
         $class_time = $request->getParam('class_time') ?? 0;
         $node_group = $request->getParam('node_group') ?? 0;
@@ -144,6 +147,7 @@ final class ProductController extends BaseController
             $content = [
                 'time' => $time,
                 'bandwidth' => $bandwidth,
+                'monthly_bandwidth' => (float) $monthly_bandwidth,
                 'class' => $class,
                 'class_time' => $class_time,
                 'node_group' => $node_group,
@@ -220,6 +224,7 @@ final class ProductController extends BaseController
         // content
         $time = $request->getParam('time') ?? 0;
         $bandwidth = $request->getParam('bandwidth') ?? 0;
+        $monthly_bandwidth = $request->getParam('monthly_bandwidth') ?? 0;
         $class = $request->getParam('class') ?? 0;
         $class_time = $request->getParam('class_time') ?? 0;
         $node_group = $request->getParam('node_group') ?? 0;
@@ -250,6 +255,7 @@ final class ProductController extends BaseController
             $content = [
                 'time' => $time,
                 'bandwidth' => $bandwidth,
+                'monthly_bandwidth' => (float) $monthly_bandwidth,
                 'class' => $class,
                 'class_time' => $class_time,
                 'node_group' => $node_group,
