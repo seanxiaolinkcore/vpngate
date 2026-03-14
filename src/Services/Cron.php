@@ -518,16 +518,6 @@ final class Cron
             $order->update_time = time();
             $order->save();
 
-            try {
-                Notification::notifyUser(
-                    $user,
-                    $_ENV['appName'] . ' - Monthly Traffic Reset',
-                    'Your monthly traffic has been reset to ' . $order->monthly_bandwidth . ' GB.'
-                );
-            } catch (GuzzleException|ClientExceptionInterface|TelegramSDKException $e) {
-                echo $e->getMessage() . PHP_EOL;
-            }
-
             echo "Monthly traffic reset for user #{$user->id}, order #{$order->id}.\n";
         }
 
